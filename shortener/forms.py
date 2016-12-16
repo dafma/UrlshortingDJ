@@ -1,19 +1,9 @@
 from django import forms
-from django.core.validators import URLValidator
-
-
-
-def validate_url(value):
-	url_validator = URLValidator()
-	try:
-		url_validator(value)
-	except:
-		raise ValidationError("Invalid URL for this field")
-	return value
+from .validators import validate_dot_com, validate_url
 
 
 class SubmitUrlForm(forms.Form):
-	url = forms.CharField(label="Submit Form", validators=[validate_url])
+	url = forms.CharField(label="Submit Form", validators=[validate_url, validate_dot_com])
 
 	# def clean(self):
 	# 	cleaned_data = super(SubmitUrlForm, self).clean()
