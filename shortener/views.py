@@ -58,7 +58,7 @@ class HomeView(View):
 		
 		form = SubmitUrlForm(request.POST)
 		if form.is_valid():
-			print(form.cleaned_data)
+			print(form.cleaned_data.get('url'))
 		context = {
 			"form":form
 		}
