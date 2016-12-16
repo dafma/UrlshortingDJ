@@ -1,7 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from .models import KirrURL
+
+
+
+def test_view(request):
+	return HttpResponse("some stuff")
 
 
 # Create your views here.
@@ -23,7 +28,7 @@ def kirr_redirect_view(request, shortcode=None,*args, **kwargs):
 	# if qs.exists() and qs.count() == 1:
 	# 	obj = qs.first()
 	# 	obj_url = obj.url
-	return HttpResponse("Hello  {sc}".format(sc=obj.url))
+	return HttpResponseRedirect(obj.url)
 
 
 class KirrRedirectView(View):

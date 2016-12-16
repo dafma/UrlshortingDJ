@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from shortener.views import KirrRedirectView, kirr_redirect_view
+from shortener.views import KirrRedirectView, kirr_redirect_view, test_view
 from shortener import views
 
 #no hacer esto
@@ -23,8 +23,9 @@ from shortener import views
 #from another_app.views import views
 
 
-urlpatterns = [
+urlpatterns = [ 
     url(r'^admin/', admin.site.urls),
-    url(r'^a/(?P<shortcode>[\w-]+)/$', kirr_redirect_view),
-    url(r'^b/(?P<shortcode>[\w-]+)/$', KirrRedirectView.as_view()),
+    url(r'^about/$', test_view),
+    url(r'^(?P<shortcode>[\w-]+){6, 15}$', kirr_redirect_view),
+    url(r'^b/(?P<shortcode>[\w-]+){6, 15}$', KirrRedirectView.as_view()),
 ]
