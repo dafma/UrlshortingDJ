@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from .models import KirrURL
-
+from .forms import SubmitUrlForm
 
 
 def test_view(request):
@@ -36,3 +36,32 @@ class KirrRedirectView(View):
 		print(args)
 		print(kwargs)
 		return HttpResponse("Hello  {sc}".format(sc=shortcode))
+
+
+
+
+
+class HomeView(View):
+	def get(self, request, *args, **kwargs):
+		the_form = SubmitUrlForm()
+		context = {
+			"title": "Submit Url",
+			"form":the_form,
+		}
+		return render(request, 'home.html', context)
+
+	def post(self, request, *args, **kwargs):
+		some_dict = {}
+		#some_dict['url'] error
+		#some_dict.get('url')
+		#print(request.POST["url"])
+		
+		form = SubmitUrlForm(request.POST)
+		if form.is_valid():
+			print(form.cleaned_data)
+		context = {
+			"form":form
+		}
+		return render(request, 'home.html', context)
+		
+
